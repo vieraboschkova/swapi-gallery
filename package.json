@@ -1,0 +1,36 @@
+{
+  "name": "swapi-gallery",
+  "version": "1.0.0",
+  "description": "Star Wars Characters Gallery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "parcel -p 8765 watch index.html",
+    "build": "parcel build index.html --public-url ./",
+    "format": "prettier --write \"js/*.js\" \"styles/*.scss\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vieraboschkova/swapi-gallery.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vieraboschkova/swapi-gallery/issues"
+  },
+  "homepage": "https://github.com/vieraboschkova/swapi-gallery#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "parcel-bundler": "^1.12.5",
+    "prettier": "2.3.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
