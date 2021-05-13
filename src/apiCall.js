@@ -1,10 +1,12 @@
 const axios = require('axios');
 
-export default async function getCharacters() {
+const baseUrl = 'https://swapi.dev/api/people/?page=';
+
+export default async function getCharacters(pageNumber = 1) {
   try {
-    const response = await axios.get('https://swapi.dev/api/people/');
+    const response = await axios.get(`${baseUrl}${pageNumber}`);
     console.log(response);
-    return response.data.results;
+    return response.data;
   } catch (error) {
     console.error(error);
     return error.message;
