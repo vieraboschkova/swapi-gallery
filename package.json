@@ -4,7 +4,6 @@
   "description": "Star Wars Characters Gallery",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf .cache && rimraf coverage && rimraf dist && rimraf node_modules",
     "prebuild": "rimraf dist",
     "start:dev": "parcel -p 8765 watch index.html",
