@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf .cache && rimraf coverage && rimraf dist && rimraf node_modules",
+    "prebuild": "rimraf dist",
     "start:dev": "parcel -p 8765 watch index.html",
     "build": "parcel build index.html --public-url ./",
     "format": "prettier --write \"js/*.js\" \"styles/*.scss\""
@@ -28,11 +30,22 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
     "parcel-bundler": "^1.12.5",
-    "prettier": "2.3.0"
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "prettier": "2.3.0",
+    "rimraf": "^3.0.2",
+    "sass": "^1.32.13"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "html-in-js": "^1.2.1",
     "regenerator-runtime": "^0.13.7"
+  },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "static",
+        "staticOutDir": "static"
+      }
+    ]
   }
 }
