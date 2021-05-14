@@ -4,8 +4,9 @@ import 'regenerator-runtime/runtime';
 import CharacterCard from './components/CharacterCard';
 import Pagination from './components/Pagination';
 import Modal from './components/Modal';
+import { doc } from 'prettier';
 
-const modalRoot = document.querySelector('#modal');
+const modalRoot = document.getElementById('modalRoot');
 const gallery = document.getElementById('galleryRoot');
 const paginationRoot = document.querySelector('.pagination');
 
@@ -29,17 +30,12 @@ const getPagesNumbersToDisplay = (currentPageNumber) => {
   return [currentPageNumber - 1, currentPageNumber, currentPageNumber + 1];
 };
 
-const getCharactersNumber = (url) => {
-  const dataArray = url.split('/');
-  return dataArray[dataArray.length - 2];
-};
-
 const showModal = (event) => {
   const urlToFetch = event.target.getAttribute('data-url');
-  const imageNumber = getCharactersNumber(urlToFetch);
-  console.log(urlToFetch, imageNumber);
   const modalToShow = new Modal(urlToFetch);
   modalRoot.innerHTML = modalToShow.component;
+  const modal = document.querySelector('.modal');
+  modal.classList.add('showModal');
 };
 
 const processPaginationDisplay = (pagesArray, maxNumber, currentPageNum) => {

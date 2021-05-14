@@ -1,11 +1,17 @@
+const getCharactersNumber = (url) => {
+  const dataArray = url.split('/');
+  return dataArray[dataArray.length - 2];
+};
+
 export default class CharacterCard {
   constructor(name, url) {
     this.name = name;
     this.url = url;
+    this.imageNumber = getCharactersNumber(url);
     this.component = `
       <div class="col">
         <div class="card shadow-sm">
-        <img src="./static/assets/img/people/${1}.jpg" class="img-thumbnail" alt="${this.name}">
+          <img src="./static/assets/img/people/${this.imageNumber}.jpg" class="img-fluid" alt="${this.name}">
           <div class="card-body">
             <p class="card-text">Name: ${this.name}</p>
             <button type="button"
