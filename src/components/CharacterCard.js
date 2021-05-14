@@ -5,7 +5,7 @@ export default class CharacterCard {
     this.component = `
       <div class="col">
         <div class="card shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="${0}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        <img src="./static/assets/img/people/${1}.jpg" class="img-thumbnail" alt="${this.name}">
           <div class="card-body">
             <p class="card-text">Name: ${this.name}</p>
             <button type="button"

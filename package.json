@@ -34,5 +34,13 @@
     "axios": "^0.21.1",
     "html-in-js": "^1.2.1",
     "regenerator-runtime": "^0.13.7"
+  },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "static",
+        "staticOutDir": "static"
+      }
+    ]
   }
 }
