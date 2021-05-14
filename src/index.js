@@ -69,10 +69,12 @@ const processCharactersDetails = async (url) => {
 };
 
 const showModal = async (event) => {
+  loaderRoot.classList.add('isLoading');
   const urlToFetch = event.target.getAttribute('data-url');
   const imageNumber = event.target.getAttribute('data-character-number');
   const details = await processCharactersDetails(urlToFetch);
   const modalToShow = new Modal(details, imageNumber);
+  loaderRoot.classList.remove('isLoading');
   modalRoot.innerHTML = modalToShow.component;
   const modal = document.querySelector('.modal');
   modal.classList.add('showModal');
