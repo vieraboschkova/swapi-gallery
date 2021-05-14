@@ -5,8 +5,10 @@ import 'regenerator-runtime/runtime';
 import CharacterCard from './components/CharacterCard';
 import Pagination from './components/Pagination';
 import Modal from './components/Modal';
+import Loader from './components/Loader';
 
 const modalRoot = document.getElementById('modalRoot');
+const loaderRoot = document.getElementById('loaderRoot');
 const gallery = document.getElementById('galleryRoot');
 const paginationRoot = document.querySelector('.pagination');
 
@@ -16,6 +18,7 @@ let currentPageDisplayed;
 let pageNumbersToDisplay;
 let resultsCount;
 let maxNumberOfPages;
+let isLoading = true;
 
 const getPagesNumbersToDisplay = (currentPageNumber) => {
   if (currentPageNumber === 1) return [1, 2, 3];
@@ -32,6 +35,7 @@ const getPagesNumbersToDisplay = (currentPageNumber) => {
 const closeModal = () => {
   modalRoot.innerHTML = '';
 };
+
 const processAsyncDetailsInArray = async (arrayOfUrls) => {
   const detailsArray = Promise.all(
     arrayOfUrls.map(async (url) => {
@@ -117,6 +121,7 @@ const processCardsDisplay = (results) => {
 };
 
 const processData = async (pageNumber = 1) => {
+  loaderRoot.classList.add('isLoading');
   const data = await getCharacters(pageNumber);
   const {
     results, next, previous, count,
@@ -124,10 +129,13 @@ const processData = async (pageNumber = 1) => {
 
   processPageSetup(next, previous, count, pageNumber);
   processCardsDisplay(results);
+  loaderRoot.classList.remove('isLoading');
 };
 
 // Init
 const initiateGallery = () => {
+  const loader = new Loader();
+  loaderRoot.innerHTML = loader.component;
   processData(1);
 };
 
