@@ -1,10 +1,9 @@
 /* eslint-disable camelcase */
-import getCharacters from './apiCall';
+import { getCharacters, getCharacterDetails } from './apiCall';
 import 'regenerator-runtime/runtime';
 import CharacterCard from './components/CharacterCard';
 import Pagination from './components/Pagination';
 import Modal from './components/Modal';
-import { doc } from 'prettier';
 
 const modalRoot = document.getElementById('modalRoot');
 const gallery = document.getElementById('galleryRoot');
@@ -16,7 +15,6 @@ let currentPageDisplayed;
 let pageNumbersToDisplay;
 let resultsCount;
 let maxNumberOfPages;
-let modalDisplayed = false;
 
 const getPagesNumbersToDisplay = (currentPageNumber) => {
   if (currentPageNumber === 1) return [1, 2, 3];
@@ -30,12 +28,53 @@ const getPagesNumbersToDisplay = (currentPageNumber) => {
   return [currentPageNumber - 1, currentPageNumber, currentPageNumber + 1];
 };
 
-const showModal = (event) => {
+const closeModal = () => {
+  modalRoot.innerHTML = '';
+};
+const processAsyncDetailsInArray = async (arrayOfUrls) => {
+  const detailsArray = Promise.all(
+    arrayOfUrls.map(async (url) => {
+      const detail = await getCharacterDetails(url);
+      return detail;
+    }),
+  );
+  return detailsArray;
+};
+
+const processCharactersDetails = async (url) => {
+  const detailsFetched = await getCharacterDetails(url);
+  // const propertiesArray = ['films', 'species', 'starships', 'vehicles'];
+  // TODO: Refactor
+  // propertiesArray.forEach(async (propertyName) => {
+  //   const newProperty = await processAsyncDetailsInArray(detailsFetched[propertyName]);
+  //   detailsFetched[propertyName] = newProperty;
+  // });
+  // console.log(detailsFetched);
+  const homeworldDetails = await getCharacterDetails(detailsFetched.homeworld);
+  const filmDetails = await processAsyncDetailsInArray(detailsFetched.films);
+  const speciesDetails = await processAsyncDetailsInArray(detailsFetched.species);
+  const starshipsDetails = await processAsyncDetailsInArray(detailsFetched.starships);
+  const vehiclesDetails = await processAsyncDetailsInArray(detailsFetched.vehicles);
+  detailsFetched.homeworld = homeworldDetails;
+  detailsFetched.films = filmDetails;
+  detailsFetched.species = speciesDetails;
+  detailsFetched.starships = starshipsDetails;
+  detailsFetched.vehicles = vehiclesDetails;
+  return detailsFetched;
+};
+
+const showModal = async (event) => {
   const urlToFetch = event.target.getAttribute('data-url');
-  const modalToShow = new Modal(urlToFetch);
+  const imageNumber = event.target.getAttribute('data-character-number');
+  const details = await processCharactersDetails(urlToFetch);
+  const modalToShow = new Modal(details, imageNumber);
   modalRoot.innerHTML = modalToShow.component;
   const modal = document.querySelector('.modal');
   modal.classList.add('showModal');
+  const closeButtons = document.querySelectorAll('.closeModal');
+  closeButtons.forEach((button) => {
+    button.addEventListener('click', closeModal);
+  });
 };
 
 const processPaginationDisplay = (pagesArray, maxNumber, currentPageNum) => {

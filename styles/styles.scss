@@ -1,3 +1,7 @@
 .showModal {
-    display: block;
+  display: block;
+  background-color: #21252990;
+}
+.list-group {
+  padding-left: calc(var(--bs-gutter-x) / 2);
 }

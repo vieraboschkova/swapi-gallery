@@ -2,7 +2,6 @@ const getCharactersNumber = (url) => {
   const dataArray = url.split('/');
   return dataArray[dataArray.length - 2];
 };
-
 export default class CharacterCard {
   constructor(name, url) {
     this.name = name;
@@ -15,7 +14,7 @@ export default class CharacterCard {
           <div class="card-body">
             <p class="card-text">Name: ${this.name}</p>
             <button type="button"
-              data-url="${this.url}" class="btn btn-sm btn-outline-secondary openModal">View</button>
+              data-url="${this.url}" data-character-number="${this.imageNumber}" class="btn btn-sm btn-outline-secondary openModal">View</button>
           </div>
         </div>
       </div>
