@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable camelcase */
 import { getCharacters, getCharacterDetails } from './apiCall';
 import 'regenerator-runtime/runtime';
@@ -77,26 +78,28 @@ const showModal = async (event) => {
   });
 };
 
+const showNewFetchedData = (event) => {
+  const pageNumberToFetch = event.target.getAttribute('data-page-number');
+  processData(pageNumberToFetch);
+};
+
 const processPaginationDisplay = (pagesArray, maxNumber, currentPageNum) => {
-  // console.log(paginationRoot);
-  if (!paginationRoot.hasChildNodes()) {
-    const pagination = new Pagination(pagesArray, maxNumber, currentPageNum);
-    // console.log(pagination);
-    paginationRoot.innerHTML = pagination.component;
-  }
-  // TODO: else change pages setup
+  const pagination = new Pagination(pagesArray, maxNumber, currentPageNum);
+  paginationRoot.innerHTML = pagination.component;
+  const paginationButtons = document.querySelectorAll('[data-page-number');
+  paginationButtons.forEach((button) => {
+    button.addEventListener('click', showNewFetchedData);
+  });
 };
 
 const processPageSetup = (next, previous, count, pageNumber) => {
   if (!resultsCount) resultsCount = count;
   if (!maxNumberOfPages) maxNumberOfPages = Math.ceil(count / 10);
-  currentPageDisplayed = pageNumber;
+  currentPageDisplayed = Number.parseInt(pageNumber);
   nextUrl = next;
   previousUrl = previous;
-  pageNumbersToDisplay = getPagesNumbersToDisplay(pageNumber);
+  pageNumbersToDisplay = getPagesNumbersToDisplay(currentPageDisplayed);
   processPaginationDisplay(pageNumbersToDisplay, maxNumberOfPages, currentPageDisplayed);
-  // console.log(nextUrl,
-  // previousUrl, currentPageDisplayed, pageNumbersToDisplay, maxNumberOfPages);
 };
 
 const processCardsDisplay = (results) => {
@@ -125,7 +128,7 @@ const processData = async (pageNumber = 1) => {
 
 // Init
 const initiateGallery = () => {
-  processData();
+  processData(1);
 };
 
 initiateGallery();
