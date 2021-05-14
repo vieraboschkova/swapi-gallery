@@ -14,7 +14,8 @@ export async function getCharacters(pageNumber = 1) {
 
 export async function getCharacterDetails(url) {
   try {
-    const response = await axios.get(url);
+    const secureUrl = 'https'.concat(url.slice(4));
+    const response = await axios.get(secureUrl);
     return response.data;
   } catch (error) {
     console.error(error);
