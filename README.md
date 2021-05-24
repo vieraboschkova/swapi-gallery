@@ -7,7 +7,7 @@ Available at https://vieraboschkova.github.io/swapi-gallery/
 I used SWAPI, Star Wars API https://swapi.dev/documentation
 
 # 🛰️ Tools
-I used Parcel, Scss, Eslint and Prettier, Axios for api call.
+I used Parcel, Scss, Eslint and Prettier, Axios for api call and bootstrap.
 
 # 🌎 Yet to come... In another galaxy...
 Unit tests, favicon, other SWAPI resources, error handling for API calls.
